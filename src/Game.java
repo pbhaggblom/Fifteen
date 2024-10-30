@@ -47,10 +47,9 @@ public class Game extends JFrame implements ActionListener {
 
         int row = 0;
         int col = 0;
-        int i = 0;
-        int j = 0;
-        for (i = 0; i < buttons.length; i++) {
-            for (j = 0; j < buttons[i].length; j++) {
+
+        for (int i = 0; i < buttons.length; i++) {
+            for (int j = 0; j < buttons[i].length; j++) {
                 if (b.equals(buttons[i][j]) ) {
                     row = i;
                     col = j;
@@ -77,8 +76,6 @@ public class Game extends JFrame implements ActionListener {
             buttons[zeroRow][zeroCol].setText(num);
             buttons[row][col].setText("");
         }
-
-
     }
 
     @Override

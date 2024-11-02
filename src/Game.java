@@ -106,18 +106,17 @@ public class Game extends JFrame implements ActionListener {
         JButton b = (JButton) e.getSource();
         switchPlaces(b);
 
-        String currentLine = "";
-        String winningLine = "";
+        StringBuilder currentLine = new StringBuilder();
+        StringBuilder winningLine = new StringBuilder();
 
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 if(buttons[i][j].getText().isEmpty()) {
-                    currentLine = currentLine + " ";
+                    currentLine.append(" ");
                 }
-                currentLine =  currentLine + buttons[i][j].getText();
+                currentLine.append(buttons[i][j].getText());
             }
         }
-        System.out.println(currentLine);
 
         for (int i = 0; i < gameWin().length; i++) {
             for (int j = 0; j < gameWin()[i].length; j++) {
@@ -125,13 +124,12 @@ public class Game extends JFrame implements ActionListener {
 //                    winningLine = winningLine + " ";
 //                }
 
-                winningLine = winningLine + gameWin()[i][j].getText();
+                winningLine.append(gameWin()[i][j].getText());
             }
         }
-        winningLine = winningLine + " "; //Kommentera för direktvinst
-        System.out.println(winningLine);
+        winningLine.append(" "); //Kommentera för direktvinst
 
-        if(currentLine.equals(winningLine)) {
+        if(currentLine.toString().contentEquals(winningLine)) {
             JOptionPane.showMessageDialog(null, "Congratulations! You won!");
         }
     }

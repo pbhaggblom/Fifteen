@@ -42,7 +42,7 @@ public class Game extends JFrame implements ActionListener {
         add(gamePanel, BorderLayout.CENTER);
 
         counterPanel.add(counterLabel);
-        counterLabel.setText("Antal drag: " + moveCounter);
+        setCounterText();
 
         gamePanel.setLayout(new GridLayout(4, 4));
 
@@ -110,10 +110,17 @@ public class Game extends JFrame implements ActionListener {
         }
     }
 
+    public void setCounterText() {
+        counterLabel.setText("Antal drag: " + moveCounter);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton b = (JButton) e.getSource();
         switchPlaces(b);
+
+        moveCounter++;
+        setCounterText();
 
         StringBuilder currentLine = new StringBuilder();
         StringBuilder winningLine = new StringBuilder();

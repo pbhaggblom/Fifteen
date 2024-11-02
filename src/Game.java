@@ -107,6 +107,8 @@ public class Game extends JFrame implements ActionListener {
             String num = buttons[row][col].getText();
             buttons[zeroRow][zeroCol].setText(num);
             buttons[row][col].setText("");
+            moveCounter++;
+            setCounterText();
         }
     }
 
@@ -118,9 +120,6 @@ public class Game extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         JButton b = (JButton) e.getSource();
         switchPlaces(b);
-
-        moveCounter++;
-        setCounterText();
 
         StringBuilder currentLine = new StringBuilder();
         StringBuilder winningLine = new StringBuilder();

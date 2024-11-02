@@ -7,7 +7,10 @@ import java.util.Collections;
 
 public class Game extends JFrame implements ActionListener {
 
-    JPanel p = new JPanel();
+    JPanel gamePanel = new JPanel();
+    JPanel counterPanel = new JPanel();
+    JLabel counterLabel = new JLabel();
+    int moveCounter = 0;
     JButton[][] buttons = new JButton[4][4];
 
     public JButton[][] gameWin() {
@@ -34,9 +37,14 @@ public class Game extends JFrame implements ActionListener {
     }
 
     public Game() {
-        add(p);
+        setLayout(new BorderLayout());
+        add(counterPanel, BorderLayout.NORTH);
+        add(gamePanel, BorderLayout.CENTER);
 
-        p.setLayout(new GridLayout(4, 4));
+        counterPanel.add(counterLabel);
+        counterLabel.setText("Antal drag: " + moveCounter);
+
+        gamePanel.setLayout(new GridLayout(4, 4));
 
         ArrayList<Integer> num = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
@@ -55,12 +63,13 @@ public class Game extends JFrame implements ActionListener {
                 JButton b = new JButton(s);
                 b.addActionListener(this);
                 buttons[i][j] = b;
-                p.add(b);
+                gamePanel.add(b);
                 k++;
             }
         }
 
-        setSize(250, 250);
+        setSize(250, 270);
+
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -13,33 +13,12 @@ public class Game extends JFrame implements ActionListener {
     int moveCounter = 0;
     JButton[][] buttons = new JButton[4][4];
 
-    public JButton[][] gameWin() {
-        JButton[][] gameWon = new JButton[4][4];
-        ArrayList<Integer> nums = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
-            nums.add(i);
-        }
-
-        int n = 0;
-
-        for (int i = 0; i < gameWon.length; i++) {
-            for (int j = 0; j < gameWon[0].length; j++) {
-                String m = "";
-                if (nums.get(n) != 0){
-                    m = nums.get(n) + "";
-                }
-                JButton bt = new JButton(m);
-                gameWon[i][j] = bt;
-                n++;
-            }
-        }
-        return gameWon;
-    }
 
     public Game() {
         setLayout(new BorderLayout());
         add(counterPanel, BorderLayout.NORTH);
         add(gamePanel, BorderLayout.CENTER);
+
 
         counterPanel.add(counterLabel);
         setCounterText();
@@ -51,7 +30,7 @@ public class Game extends JFrame implements ActionListener {
             num.add(i);
         }
 
-        Collections.shuffle(num); //Kommentera för direktvinst
+        Collections.shuffle(num); //Kommentera för direktvinst och ändra i enum
         int k = 0;
 
         for (int i = 0; i < buttons.length; i++) {
@@ -122,7 +101,6 @@ public class Game extends JFrame implements ActionListener {
         switchPlaces(b);
 
         StringBuilder currentLine = new StringBuilder();
-        StringBuilder winningLine = new StringBuilder();
 
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
@@ -133,18 +111,7 @@ public class Game extends JFrame implements ActionListener {
             }
         }
 
-        for (int i = 0; i < gameWin().length; i++) {
-            for (int j = 0; j < gameWin()[i].length; j++) {
-//                if(gameWin()[i][j].getText().isEmpty()) { //Kommentera ut för direktvinst
-//                    winningLine = winningLine + " ";
-//                }
-
-                winningLine.append(gameWin()[i][j].getText());
-            }
-        }
-        winningLine.append(" "); //Kommentera för direktvinst
-
-        if(currentLine.toString().contentEquals(winningLine)) {
+        if(currentLine.toString().contentEquals(GameWin.WINNING_LINE.win)) {
             JOptionPane.showMessageDialog(null, "Congratulations! You won!");
         }
     }

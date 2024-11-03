@@ -5,22 +5,29 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
 
 public class Game extends JFrame implements ActionListener {
 
     JPanel gamePanel = new JPanel();
     JPanel counterPanel = new JPanel();
     JLabel counterLabel = new JLabel();
+    JPanel timerPanel = new JPanel();
+    JLabel timerLabel = new JLabel();
+
     int moveCounter = 0;
     JButton[][] buttons = new JButton[4][4];
+    GameTimer timer = new GameTimer(0,0,0);
+
 
 
     public Game() {
         setLayout(new BorderLayout());
         add(counterPanel, BorderLayout.NORTH);
         add(gamePanel, BorderLayout.CENTER);
+        add(timerPanel, BorderLayout.SOUTH);
 
-
+        timerPanel.add(timerLabel);
         counterPanel.add(counterLabel);
         setCounterText();
 
@@ -49,10 +56,10 @@ public class Game extends JFrame implements ActionListener {
         }
 
         setSize(250, 270);
-
         setLocationRelativeTo(null);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTimer();
     }
 
     public void switchPlaces(JButton b) {
@@ -96,6 +103,13 @@ public class Game extends JFrame implements ActionListener {
         counterLabel.setText("Antal drag: " + moveCounter);
     }
 
+    public void setTimer(){
+        timer.start();
+        while(!timer.isInterrupted()){
+            timerLabel.setText("Timer: " + timer.getHours() +":"+ timer.getMinutes() + ":" + timer.getSeconds());
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton b = (JButton) e.getSource();
@@ -113,7 +127,10 @@ public class Game extends JFrame implements ActionListener {
         }
 
         if(currentLine.toString().contentEquals(GameWin.WINNING_LINE.win)) {
-            JOptionPane.showMessageDialog(null, "Congratulations! You won!");
+            timer.interrupt();
+            JOptionPane.showMessageDialog(null, "Congratulations! You won!\n" +
+                    "Antal Drag: " + moveCounter + "\n" +
+                    "Tid: " + timer.getHours() + ":" + timer.getMinutes() + ":" + timer.getSeconds());
             this.dispose();
             new Main().newGame();
         }

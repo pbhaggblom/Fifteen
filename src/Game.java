@@ -109,7 +109,7 @@ public class Game extends JFrame implements ActionListener {
     }
 
     public void start(JButton[][] buttons) {
-        //        Collections.shuffle(num); //Kommentera för direktvinst och ändra i enum
+        //        Collections.shuffle(num); //Kommentera för direktvinst
         int k = 0;
 
         for (int i = 0; i < buttons.length; i++) {
@@ -137,7 +137,7 @@ public class Game extends JFrame implements ActionListener {
                 null,null,null);
 
         if(startNew == JOptionPane.YES_OPTION){
-            new Game();
+            start(buttons);
         }else{
             System.exit(0);
         }
@@ -164,6 +164,7 @@ public class Game extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Congratulations! You won!\n" +
                     "Antal Drag: " + moveCounter + "\n" +
                     "Tid: " + timer.getHours() + ":" + timer.getMinutes() + ":" + timer.getSeconds());
+            newGame();
             start(buttons);
         }
     }
